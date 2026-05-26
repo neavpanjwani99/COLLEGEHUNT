@@ -31,13 +31,13 @@ export function FilterSidebar({
   const typeList = ["Government", "Private", "Deemed"];
 
   return (
-    <aside className="sticky top-16 h-fit rounded-none border-r border-[#E5E7EB] bg-[#F9FAFB] p-6">
+    <aside className="sticky top-16 h-fit rounded-none border-r border-[#E5E7EB] bg-white p-6">
       <div className="space-y-6">
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Stream</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Stream</div>
           <div className="mt-3 flex flex-wrap gap-2">
             {streamList.map((stream) => (
-              <Badge key={stream} className={streams.includes(stream) ? "bg-[#006AFF] text-white" : "bg-white"}>
+              <Badge key={stream} className={`rounded-full px-3 py-1.5 border font-semibold transition-all ${streams.includes(stream) ? "bg-[#FF385C] text-white border-transparent" : "bg-white border-gray-200 hover:border-gray-400"}`}>
                 <button type="button" onClick={() => toggleStream(stream)}>
                   {stream}
                 </button>
@@ -46,10 +46,10 @@ export function FilterSidebar({
           </div>
         </div>
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Type</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Type</div>
           <div className="mt-3 flex flex-wrap gap-2">
             {["All", ...typeList].map((value) => (
-              <Badge key={value} className={type === value ? "bg-[#006AFF] text-white" : "bg-white"}>
+              <Badge key={value} className={`rounded-full px-3 py-1.5 border font-semibold transition-all ${type === value ? "bg-[#FF385C] text-white border-transparent" : "bg-white border-gray-200 hover:border-gray-400"}`}>
                 <button type="button" onClick={() => setType(value)}>
                   {value}
                 </button>
@@ -58,17 +58,17 @@ export function FilterSidebar({
           </div>
         </div>
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">City</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">City</div>
           <Input className="mt-3 bg-white" value={city} onChange={(event) => setCity(event.target.value)} />
         </div>
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Annual Fees</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Annual Fees</div>
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <Input type="number" placeholder="₹0" value={minFee} onChange={(event) => setMinFee(event.target.value)} />
-            <Input type="number" placeholder="₹50,00,000" value={maxFee} onChange={(event) => setMaxFee(event.target.value)} />
+            <Input type="number" placeholder="₹0" value={minFee} onChange={(event) => setMinFee(event.target.value)} className="bg-white" />
+            <Input type="number" placeholder="₹50,00,000" value={maxFee} onChange={(event) => setMaxFee(event.target.value)} className="bg-white" />
           </div>
         </div>
-        <button type="button" className="text-sm font-medium text-[#006AFF]" onClick={clear}>
+        <button type="button" className="text-sm font-semibold text-[#FF385C] hover:underline" onClick={clear}>
           Clear all filters
         </button>
       </div>

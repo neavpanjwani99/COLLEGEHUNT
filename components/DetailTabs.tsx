@@ -58,10 +58,10 @@ export function DetailTabs({ college }: { college: College }) {
   }, [college.cutoffs]);
 
   return (
-    <div className="mx-auto max-w-[1200px] px-6 py-10">
+    <div className="mx-auto max-w-[1200px] px-6 pt-4 pb-10">
       <div className="flex gap-6 border-b border-[#E5E7EB]">
         {( ["Overview", "Courses and Fees", "Placements", "Reviews", "Admission"] as TabKey[] ).map((item) => (
-          <button key={item} type="button" onClick={() => setTab(item)} className={`pb-4 text-sm ${tab === item ? "border-b-2 border-[#006AFF] text-[#006AFF]" : "text-[#6B7280]"}`}>
+          <button key={item} type="button" onClick={() => setTab(item)} className={`pb-4 text-sm font-semibold transition-all ${tab === item ? "border-b-2 border-[#FF385C] text-[#FF385C]" : "text-[#717171]"}`}>
             {item}
           </button>
         ))}
@@ -72,25 +72,25 @@ export function DetailTabs({ college }: { college: College }) {
           <p className="max-w-3xl text-[16px] leading-8 text-[#374151]">{college.overview}</p>
           <div className="grid gap-4 md:grid-cols-4">
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Established Year</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{college.established}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Established Year</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{college.established}</div>
             </Card>
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">NIRF Rank</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">#{college.nirfRank}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">NIRF Rank</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">#{college.nirfRank}</div>
             </Card>
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Accreditation</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{college.acreditation}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Accreditation</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{college.acreditation}</div>
             </Card>
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Annual Fees</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{formatFees(college.annualFee)}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Annual Fees</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{formatFees(college.annualFee)}</div>
             </Card>
           </div>
           <div className="flex flex-wrap gap-2">
             {college.tags.map((tag) => (
-              <Badge key={tag}>{tag}</Badge>
+              <Badge key={tag} className="rounded-full px-3 py-1 font-semibold">{tag}</Badge>
             ))}
           </div>
         </div>
@@ -99,12 +99,12 @@ export function DetailTabs({ college }: { college: College }) {
       {tab === "Courses and Fees" && (
         <div className="space-y-3 py-8">
           {college.courses.map((course) => (
-            <Card key={`${course.name}-${course.degree}`} className="flex items-center justify-between p-5">
+            <Card key={`${course.name}-${course.degree}`} className="flex items-center justify-between p-5 rounded-2xl">
               <div>
-                <div className="font-semibold text-[#111827]">{course.name}</div>
-                <Badge className="mt-2">{course.degree}</Badge>
+                <div className="font-bold text-[#222222]">{course.name}</div>
+                <Badge className="mt-2 rounded-full font-semibold">{course.degree}</Badge>
               </div>
-              <div className="text-sm font-semibold text-[#111827]">{formatFees(course.annualFee)}</div>
+              <div className="text-sm font-bold text-[#222222]">{formatFees(course.annualFee)}</div>
             </Card>
           ))}
         </div>
@@ -114,28 +114,28 @@ export function DetailTabs({ college }: { college: College }) {
         <div className="space-y-6 py-8">
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Avg Package this year</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{formatPackage(college.placements[0]?.avgPackage ?? 0)}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Avg Package this year</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{formatPackage(college.placements[0]?.avgPackage ?? 0)}</div>
             </Card>
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Max Package this year</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{formatPackage(college.placements[0]?.maxPackage ?? 0)}</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Max Package this year</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{formatPackage(college.placements[0]?.maxPackage ?? 0)}</div>
             </Card>
             <Card className="p-5">
-              <div className="text-xs uppercase tracking-[0.04em] text-[#6B7280]">Placement Rate this year</div>
-              <div className="mt-2 text-3xl font-bold text-[#111827]">{college.placements[0]?.placementRate ?? 0}%</div>
+              <div className="text-xs uppercase tracking-[0.04em] text-[#717171] font-semibold">Placement Rate this year</div>
+              <div className="mt-2 text-3xl font-bold text-[#222222]">{college.placements[0]?.placementRate ?? 0}%</div>
             </Card>
           </div>
-          <Card className="p-6">
-            <div className="mb-4 text-lg font-semibold text-[#111827]">Average Package Trend (LPA)</div>
+          <Card className="p-6 rounded-2xl">
+            <div className="mb-4 text-lg font-bold text-[#222222]">Average Package Trend (LPA)</div>
             <div className="h-[280px]">
               {mounted ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={yearData}>
-                    <XAxis dataKey="year" stroke="#6B7280" />
-                    <YAxis stroke="#6B7280" />
-                    <Tooltip />
-                    <Bar dataKey="avgPackage" fill="#006AFF" />
+                    <XAxis dataKey="year" stroke="#717171" tickLine={false} />
+                    <YAxis stroke="#717171" tickLine={false} />
+                    <Tooltip cursor={{ fill: '#FFF0F2', opacity: 0.5 }} />
+                    <Bar dataKey="avgPackage" fill="#FF385C" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (

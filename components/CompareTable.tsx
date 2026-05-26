@@ -99,7 +99,7 @@ export function CompareTable({ weights }: { weights: WeightState }) {
     { subject: "Courses Offered", ...scored.reduce((acc, { college }) => ({ ...acc, [college.name]: Math.min(100, college.courses.length * 20 + 20) }), {}) }
   ];
 
-  const chartColors = ["#006AFF", "#10B981", "#F59E0B"];
+  const chartColors = ["#FF385C", "#10B981", "#F59E0B"];
 
   return (
     <div className="flex-1 space-y-8">
@@ -110,9 +110,9 @@ export function CompareTable({ weights }: { weights: WeightState }) {
             id="diff-only"
             checked={diffOnly}
             onChange={(e) => setDiffOnly(e.target.checked)}
-            className="h-4 w-4 rounded border-[#E5E7EB] text-[#006AFF] focus:ring-[#006AFF]"
+            className="h-4 w-4 rounded border-gray-300 text-[#FF385C] focus:ring-[#FF385C] cursor-pointer"
           />
-          <label htmlFor="diff-only" className="text-sm font-medium text-[#374151] select-none cursor-pointer">
+          <label htmlFor="diff-only" className="text-sm font-semibold text-[#717171] select-none cursor-pointer">
             Highlight differences only
           </label>
         </div>
@@ -122,29 +122,29 @@ export function CompareTable({ weights }: { weights: WeightState }) {
         </Button>
       </div>
 
-      <div className="overflow-x-auto border border-[#E5E7EB] rounded-xl bg-white shadow-sm">
+      <div className="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-sm">
         <table className="w-full text-left text-sm border-collapse">
           <thead>
-            <tr className="bg-[#F9FAFB]">
-              <th className="w-40 border-b border-[#E5E7EB] p-4 text-[12px] font-bold uppercase tracking-wider text-[#6B7280]">Criteria</th>
+            <tr className="bg-gray-50/70">
+              <th className="w-40 border-b border-gray-200 p-4 text-[12px] font-bold uppercase tracking-wider text-[#717171]">Criteria</th>
               {scored.map(({ college }) => (
-                <th key={college.id} className="border-b border-[#E5E7EB] p-4 align-top min-w-[200px]">
+                <th key={college.id} className="border-b border-gray-200 p-4 align-top min-w-[200px]">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <div className="font-bold text-[#111827]">{college.name}</div>
-                      <div className="text-xs text-[#6B7280]">{college.city}</div>
+                      <div className="font-bold text-[#222222]">{college.name}</div>
+                      <div className="text-xs text-[#717171]">{college.city}</div>
                     </div>
-                    <button type="button" onClick={() => removeCompare(college.id)} className="text-[#9CA3AF] hover:text-[#111827]">
+                    <button type="button" onClick={() => removeCompare(college.id)} className="text-[#717171] hover:text-[#222222] hover:bg-gray-100 p-1.5 rounded-full transition-colors">
                       <X className="h-4 w-4" />
                     </button>
                   </div>
                   <div className="mt-3 flex items-baseline gap-1">
-                    <span className="text-3xl font-extrabold text-[#111827]">
+                    <span className="text-3xl font-extrabold text-[#222222]">
                       {Math.round(scored.find((row) => row.college.id === college.id)?.finalScore ?? 0)}
                     </span>
-                    <span className="text-xs font-semibold text-[#6B7280]">/100</span>
+                    <span className="text-xs font-semibold text-[#717171]">/100</span>
                     {scored[0]?.college.id === college.id && (
-                      <Badge className="ml-2 bg-[#D1FAE5] text-[#065F46] border-none font-bold uppercase text-[9px] px-1.5 py-0.5">Best Match</Badge>
+                      <Badge className="ml-2 bg-[#E6F7F0] text-[#008A5E] border-none font-bold uppercase text-[9px] px-2 py-0.5 rounded-full">Best Match</Badge>
                     )}
                   </div>
                 </th>
@@ -154,15 +154,15 @@ export function CompareTable({ weights }: { weights: WeightState }) {
           <tbody>
             {visibleRows.map((row) => (
               <tr key={row.label} className="hover:bg-gray-50/50">
-                <td className="border-b border-[#E5E7EB] p-4 font-semibold text-[#374151] bg-[#F9FAFB]/30">{row.label}</td>
+                <td className="border-b border-gray-100 p-4 font-semibold text-[#222222] bg-gray-50/10">{row.label}</td>
                 {scored.map(({ college }) => {
                   const highlight = isWinner(row.label, college);
                   return (
-                    <td key={college.id} className={`border-b border-[#E5E7EB] p-4 text-[#111827] transition-colors ${highlight ? "bg-green-50/40 text-green-700 font-semibold" : ""}`}>
+                    <td key={college.id} className={`border-b border-gray-100 p-4 text-[#222222] transition-colors ${highlight ? "bg-[#E6F7F0]/30 text-[#008A5E] font-semibold" : ""}`}>
                       <div className="flex items-center gap-2">
-                        {row.label === "Type" ? <Badge className="bg-[#F3F4F6] text-[#4B5563] border-none font-medium">{row.formatter(college)}</Badge> : row.formatter(college)}
+                        {row.label === "Type" ? <Badge className="bg-[#F3F4F6] text-[#4B5563] border-none font-semibold rounded-full">{row.formatter(college)}</Badge> : row.formatter(college)}
                         {highlight && (
-                          <span className="inline-flex items-center gap-1 rounded bg-[#D1FAE5] px-1.5 py-0.5 text-[9px] font-bold text-[#065F46] uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 rounded bg-[#E6F7F0] px-2 py-0.5 text-[9px] font-bold text-[#008A5E] uppercase tracking-wider rounded-full">
                             <Award className="h-3.5 w-3.5" /> Winner
                           </span>
                         )}
@@ -177,9 +177,9 @@ export function CompareTable({ weights }: { weights: WeightState }) {
       </div>
 
       {/* Radar Chart Section */}
-      <Card className="p-6">
-        <h3 className="text-lg font-bold text-[#111827] mb-2">Comparison Overview</h3>
-        <p className="text-sm text-[#6B7280] mb-6">Visual analysis of colleges across key academic, financial, and placement dimensions.</p>
+      <Card className="p-6 rounded-2xl border-gray-200">
+        <h3 className="text-lg font-bold text-[#222222] mb-2">Comparison Overview</h3>
+        <p className="text-sm text-[#717171] mb-6">Visual analysis of colleges across key academic, financial, and placement dimensions.</p>
         <div className="h-[320px] w-full flex items-center justify-center">
           {mounted ? (
             <ResponsiveContainer width="100%" height="100%">
