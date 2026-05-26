@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logoImg from "@/app/images/logo.png";
+import logoImg from "@/app/images/Logo.png";
 import { Search, Menu, X, ArrowRight } from "lucide-react";
 import { Input, Button } from "@/components/ui";
 import { useShortlist } from "@/context/ShortlistContext";
