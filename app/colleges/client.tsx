@@ -24,6 +24,22 @@ function ClientContent({ colleges }: { colleges: College[] }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    const streamParam = searchParams.get("stream");
+    if (streamParam) {
+      setStreams([streamParam]);
+    } else {
+      setStreams([]);
+    }
+    
+    const cityParam = searchParams.get("city");
+    if (cityParam) {
+      setCity(cityParam);
+    } else {
+      setCity("");
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     const timer = window.setTimeout(() => setLoaded(true), 50);
     return () => window.clearTimeout(timer);
   }, []);
@@ -62,7 +78,7 @@ function ClientContent({ colleges }: { colleges: College[] }) {
   return (
     <>
       <OnboardingModal />
-      <div className="mx-auto max-w-[1200px] px-6 py-12 md:py-20">
+      <div className="mx-auto max-w-[1200px] px-6 pt-6 pb-12 md:pt-10 md:pb-20">
         <div className="mb-6 flex items-center justify-between md:hidden">
           <div className="text-sm font-medium text-[#6B7280]">{filtered.length} colleges found</div>
           <Button variant="secondary" onClick={() => setShowMobileFilters(!showMobileFilters)}>
@@ -93,11 +109,11 @@ function ClientContent({ colleges }: { colleges: College[] }) {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#E5E7EB] py-32 bg-[#F9FAFB]">
-                <School className="mb-4 h-12 w-12 text-[#9CA3AF]" />
-                <h3 className="text-xl font-semibold text-[#111827]">No colleges match your filters</h3>
-                <p className="mt-2 text-[15px] text-[#6B7280]">Try adjusting your filters or clearing them to see results.</p>
-                <button type="button" onClick={() => { setCity(""); setType("All"); setStreams([]); setMinFee(""); setMaxFee(""); }} className="mt-6 font-semibold text-[#006AFF] hover:underline">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 py-32 bg-white">
+                <School className="mb-4 h-12 w-12 text-[#FF385C]" />
+                <h3 className="text-xl font-bold text-[#222222]">No colleges match your filters</h3>
+                <p className="mt-2 text-[15px] text-[#717171]">Try adjusting your filters or clearing them to see results.</p>
+                <button type="button" onClick={() => { setCity(""); setType("All"); setStreams([]); setMinFee(""); setMaxFee(""); }} className="mt-6 font-bold text-[#FF385C] hover:underline">
                   Clear all filters
                 </button>
               </div>

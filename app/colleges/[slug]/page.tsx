@@ -34,23 +34,23 @@ export default async function CollegeDetailPage({ params }: { params: Promise<{ 
             
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <Badge className="bg-[#EFF6FF] text-[#006AFF] font-bold border-none hover:bg-[#EFF6FF]">NIRF Rank #{college.nirfRank}</Badge>
-                <Badge className="bg-[#F3F4F6] text-[#4B5563] font-semibold border-none hover:bg-[#F3F4F6]">{college.acreditation}</Badge>
-                <Badge className="bg-[#F3F4F6] text-[#4B5563] font-semibold border-none hover:bg-[#F3F4F6]">{college.type}</Badge>
+                <Badge className="bg-[#FFF0F2] text-[#FF385C] font-bold border-none hover:bg-[#FFF0F2] rounded-full px-3 py-1">NIRF Rank #{college.nirfRank}</Badge>
+                <Badge className="bg-[#F3F4F6] text-[#4B5563] font-semibold border-none hover:bg-[#F3F4F6] rounded-full px-3 py-1">{college.acreditation}</Badge>
+                <Badge className="bg-[#F3F4F6] text-[#4B5563] font-semibold border-none hover:bg-[#F3F4F6] rounded-full px-3 py-1">{college.type}</Badge>
               </div>
-              <h1 className="text-3xl md:text-[36px] font-bold text-[#111827] tracking-tight leading-tight">
+              <h1 className="text-3xl md:text-[36px] font-bold text-[#222222] tracking-tight leading-tight">
                 {college.name}
               </h1>
-              <div className="mt-4 flex flex-wrap items-center gap-5 text-[15px] text-[#6B7280]">
-                <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4" />{college.city}, {college.state}</span>
-                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" />Est. {college.established}</span>
-                <span className="flex items-center gap-1.5"><Building2 className="h-4 w-4" />{college.streams[0]} Focus</span>
+              <div className="mt-4 flex flex-wrap items-center gap-5 text-[15px] text-[#717171]">
+                <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4 text-[#FF385C]" />{college.city}, {college.state}</span>
+                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-[#FF385C]" />Est. {college.established}</span>
+                <span className="flex items-center gap-1.5"><Building2 className="h-4 w-4 text-[#FF385C]" />{college.streams[0]} Focus</span>
               </div>
             </div>
 
             <div className="flex flex-col gap-3 min-w-[200px]">
               <Link href={college.website} target="_blank">
-                <Button className="w-full text-[15px] h-12 bg-[#006AFF] text-white hover:bg-[#0056CC] border-none font-semibold">
+                <Button className="w-full text-[15px] h-12 bg-[#FF385C] text-white hover:bg-[#E61E4D] border-none font-semibold rounded-full">
                   Visit Website <ExternalLink className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
