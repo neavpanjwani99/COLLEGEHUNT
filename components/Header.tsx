@@ -36,17 +36,17 @@ function HeaderContent() {
     <>
       <header className="sticky top-0 z-40 w-full border-b border-[#E5E7EB] bg-white/95 backdrop-blur-sm">
         <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-6 px-6">
-          <Link href="/colleges" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image src={logoImg} alt="CollegeHunt" height={40} className="object-contain h-10 w-auto" />
           </Link>
 
-          <div className="relative hidden max-w-[400px] flex-1 lg:block">
-            <Search className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#9CA3AF]" />
+          <div className="relative max-w-[150px] xs:max-w-[200px] sm:max-w-[280px] md:max-w-[360px] lg:max-w-[400px] flex-1 block">
+            <Search className="absolute left-3 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-[#9CA3AF]" />
             <Input 
               value={query} 
               onChange={(e) => handleSearch(e.target.value)} 
-              placeholder="Search by college or city..." 
-              className="w-full h-10 bg-[#F9FAFB] pl-11 text-[14px] border-[#E5E7EB] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#006AFF] focus-visible:border-[#006AFF] rounded-lg shadow-sm" 
+              placeholder="Search..." 
+              className="w-full h-9 md:h-10 bg-[#F9FAFB] pl-8 md:pl-10 text-[13px] md:text-[14px] border-[#E5E7EB] focus-visible:bg-white focus-visible:ring-1 focus-visible:ring-[#006AFF] focus-visible:border-[#006AFF] rounded-lg shadow-sm" 
             />
           </div>
 
