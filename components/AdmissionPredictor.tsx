@@ -54,11 +54,11 @@ export function AdmissionPredictor({ college }: { college: College }) {
   };
 
   return (
-    <Card className="border-[#BFDBFE] bg-[#EFF6FF] p-6">
-      <h3 className="text-lg font-semibold">Check your admission chances</h3>
+    <Card className="border border-gray-200 bg-white p-6 rounded-2xl shadow-sm">
+      <h3 className="text-lg font-bold text-[#222222]">Check your admission chances</h3>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Your JEE/CUET Percentile</label>
+          <label className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Your percentile</label>
           <input
             type="number"
             min="0"
@@ -66,14 +66,14 @@ export function AdmissionPredictor({ college }: { college: College }) {
             value={percentile}
             onChange={(event) => setPercentile(event.target.value)}
             placeholder="Enter percentile (0-100)"
-            className="mt-2 w-full rounded-lg border border-[#E5E7EB] bg-white px-4 py-3 text-sm outline-none"
+            className="mt-2 w-full rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none focus:ring-1 focus:ring-[#FF385C] focus:border-[#FF385C]"
           />
         </div>
         <div>
-          <label className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Exam</label>
+          <label className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Exam</label>
           <div className="mt-2 flex flex-wrap gap-2">
             {availableExams.map((value) => (
-              <Badge key={value} className={activeExam === value ? "bg-[#006AFF] text-white hover:bg-[#006AFF]" : "bg-white"}>
+              <Badge key={value} className={`rounded-full px-3 py-1.5 border font-semibold transition-all ${activeExam === value ? "bg-[#FF385C] text-white border-transparent" : "bg-white border-gray-200 hover:border-gray-400"}`}>
                 <button type="button" onClick={() => setExam(value)}>
                   {value}
                 </button>
@@ -83,10 +83,10 @@ export function AdmissionPredictor({ college }: { college: College }) {
         </div>
       </div>
       <div className="mt-4">
-        <div className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Category</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.04em] text-[#717171]">Category</div>
         <div className="mt-2 flex flex-wrap gap-2">
           {(["General", "OBC", "SC", "ST"] as Category[]).map((value) => (
-            <Badge key={value} className={category === value ? "bg-[#006AFF] text-white" : "bg-white"}>
+            <Badge key={value} className={`rounded-full px-3 py-1.5 border font-semibold transition-all ${category === value ? "bg-[#FF385C] text-white border-transparent" : "bg-white border-gray-200 hover:border-gray-400"}`}>
               <button type="button" onClick={() => setCategory(value)}>
                 {value}
               </button>
@@ -94,16 +94,16 @@ export function AdmissionPredictor({ college }: { college: College }) {
           ))}
         </div>
       </div>
-      <Button className="mt-5" onClick={check}>
+      <Button className="mt-5 w-full rounded-full bg-[#FF385C] hover:bg-[#E61E4D] font-bold text-white border-none h-11" onClick={check}>
         Check Chances
       </Button>
       {result ? (
-        <div className={`mt-5 rounded-xl border p-4 ${result.tone === "green" ? "border-green-200 bg-green-50" : result.tone === "yellow" ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-red-50"}`}>
+        <div className={`mt-5 rounded-2xl border p-4 ${result.tone === "green" ? "border-green-200 bg-green-50/50 text-green-800" : result.tone === "yellow" ? "border-yellow-200 bg-yellow-50/50 text-yellow-800" : "border-red-200 bg-red-50/50 text-red-800"}`}>
           <div className="flex items-center justify-between">
-            <div className="font-semibold">{result.label}</div>
-            <div className="text-sm text-[#374151]">{result.message}</div>
+            <div className="font-bold">{result.label}</div>
+            <div className="text-sm font-medium">{result.message}</div>
           </div>
-          <div className="mt-3 h-2 rounded-full bg-white">
+          <div className="mt-3 h-2 rounded-full bg-white/80 overflow-hidden">
             <div className={`h-2 rounded-full ${result.tone === "green" ? "bg-green-500" : result.tone === "yellow" ? "bg-yellow-500" : "bg-red-500"}`} style={{ width: `${result.fill}%` }} />
           </div>
         </div>
