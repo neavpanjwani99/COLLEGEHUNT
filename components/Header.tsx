@@ -37,7 +37,7 @@ function HeaderContent() {
       <header className="sticky top-0 z-40 w-full border-b border-[#E5E7EB] bg-white/95 backdrop-blur-sm">
         <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-6 px-6">
           <Link href="/colleges" className="flex items-center">
-            <Image src={logoImg} alt="CollegeHunt" height={28} className="object-contain h-7 w-auto" />
+            <Image src={logoImg} alt="CollegeHunt" height={40} className="object-contain h-10 w-auto" />
           </Link>
 
           <div className="relative hidden max-w-[400px] flex-1 lg:block">

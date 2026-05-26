@@ -29,7 +29,7 @@ function ClientContent({ colleges }: { colleges: College[] }) {
   }, []);
 
   const filtered = useMemo(() => {
-    return colleges.filter((college) => {
+    let result = colleges.filter((college) => {
       const matchesSearch = college.name.toLowerCase().includes(deferredSearch.toLowerCase()) || college.city.toLowerCase().includes(deferredSearch.toLowerCase());
       const matchesCity = city ? college.city.toLowerCase().includes(city.toLowerCase()) : true;
       const matchesType = type === "All" ? true : college.type === type;
@@ -38,6 +38,23 @@ function ClientContent({ colleges }: { colleges: College[] }) {
       const matchesMax = maxFee ? college.annualFee <= Number(maxFee) : true;
       return matchesSearch && matchesCity && matchesType && matchesStream && matchesMin && matchesMax;
     });
+
+    try {
+      const onboarded = window.localStorage.getItem("collegefind_onboarded");
+      if (onboarded) {
+        const { priority } = JSON.parse(onboarded);
+        if (priority === "Placement Package") {
+          result.sort((a, b) => (b.placements[0]?.avgPackage || 0) - (a.placements[0]?.avgPackage || 0));
+        } else if (priority === "Low Fees") {
+          result.sort((a, b) => a.annualFee - b.annualFee);
+        } else if (priority === "College Location") {
+          // Fallback to NIRF for location or stable sort
+          result.sort((a, b) => a.nirfRank - b.nirfRank);
+        }
+      }
+    } catch(e) {}
+
+    return result;
   }, [colleges, deferredSearch, city, type, streams, minFee, maxFee]);
 
   const toggleStream = (stream: string) => setStreams((current) => (current.includes(stream) ? current.filter((item) => item !== stream) : [...current, stream]));
@@ -59,7 +76,7 @@ function ClientContent({ colleges }: { colleges: College[] }) {
           </div>
           <div>
             {!loaded ? (
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="flex flex-col gap-6">
                 {Array.from({ length: 6 }).map((_, index) => (
                   <div key={index} className="flex flex-col overflow-hidden rounded-xl border border-[#E5E7EB] bg-white shadow-sm">
                     <div className="h-28 animate-pulse bg-gray-100" />
@@ -85,7 +102,7 @@ function ClientContent({ colleges }: { colleges: College[] }) {
                 </button>
               </div>
             ) : (
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="flex flex-col gap-6">
                 {filtered.map((college) => <CollegeCard key={college.id} college={college} />)}
               </div>
             )}

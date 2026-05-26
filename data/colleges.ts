@@ -1,4 +1,13 @@
 import type { College } from "@/types";
+import aiimsLogo from "@/app/images/AIIMSDelhi.png";
+import chandigarhLogo from "@/app/images/ChandigarhUniversity.png";
+import iimLogo from "@/app/images/IIMAhmedabad.png";
+import kiitLogo from "@/app/images/KIITBhubaneswar.png";
+import lsrLogo from "@/app/images/LadyShriRamCollege.png";
+import manipalLogo from "@/app/images/ManipalInstituteofTechnology.png";
+import nitLogo from "@/app/images/NITTrichy.png";
+import nluLogo from "@/app/images/NLUDelhi.png";
+import srccLogo from "@/app/images/SRCCDelhi.png";
 import { slugify } from "@/lib/utils";
 
 const collegeData: Omit<College, "id" | "slug">[] = [
@@ -462,15 +471,19 @@ const collegeData: Omit<College, "id" | "slug">[] = [
 const logoMap: Record<string, string> = {
   "IIT Bombay": "https://upload.wikimedia.org/wikipedia/en/1/1d/Indian_Institute_of_Technology_Bombay_Logo.svg",
   "IIT Delhi": "https://upload.wikimedia.org/wikipedia/en/f/fd/Indian_Institute_of_Technology_Delhi_Logo.svg",
-  "IIM Ahmedabad": "https://upload.wikimedia.org/wikipedia/en/5/58/IIM_Ahmedabad_Logo.svg",
-  "AIIMS Delhi": "https://upload.wikimedia.org/wikipedia/en/3/36/All_India_Institute_of_Medical_Sciences%2C_New_Delhi_Logo.svg",
+  "IIM Ahmedabad": iimLogo.src,
+  "AIIMS Delhi": aiimsLogo.src,
   "BITS Pilani": "https://upload.wikimedia.org/wikipedia/en/d/d3/BITS_Pilani-Logo.svg",
-  "NIT Trichy": "https://upload.wikimedia.org/wikipedia/en/8/87/National_Institute_of_Technology_Tiruchirappalli_Logo.png",
+  "NIT Trichy": nitLogo.src,
   "VIT Vellore": "https://upload.wikimedia.org/wikipedia/en/c/c5/Vellore_Institute_of_Technology_seal_2017.svg",
-  "Manipal Academy of Higher Education": "https://upload.wikimedia.org/wikipedia/en/e/e4/Manipal_University_logo.png",
+  "Manipal Academy of Higher Education": manipalLogo.src,
   "LPU Jalandhar": "https://upload.wikimedia.org/wikipedia/en/7/7b/Lovely_Professional_University_logo.png",
-  "KIIT Bhubaneswar": "https://upload.wikimedia.org/wikipedia/en/a/a9/KIIT_logo.svg",
-  "Amrita Vishwa Vidyapeetham": "https://upload.wikimedia.org/wikipedia/en/8/8a/Amrita_Vishwa_Vidyapeetham_Logo.svg"
+  "KIIT Bhubaneswar": kiitLogo.src,
+  "Amrita Vishwa Vidyapeetham": "https://upload.wikimedia.org/wikipedia/en/8/8a/Amrita_Vishwa_Vidyapeetham_Logo.svg",
+  "Chandigarh University": chandigarhLogo.src,
+  "Lady Shri Ram College for Women": lsrLogo.src,
+  "NLU Delhi": nluLogo.src,
+  "Shri Ram College of Commerce (SRCC)": srccLogo.src,
 };
 
 const realisticBanners = [
