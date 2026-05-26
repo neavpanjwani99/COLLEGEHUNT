@@ -10,21 +10,21 @@ export function Button({
   asChild,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "secondary" | "ghost"; asChild?: boolean }) {
-  const base = "inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-medium";
+  const base = "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-colors duration-150";
   const styles = {
-    primary: "bg-[#006AFF] text-white",
-    secondary: "border border-[#E5E7EB] bg-white text-[#374151]",
-    ghost: "text-[#374151]",
+    primary: "bg-[#FF385C] text-white hover:bg-[#E61E4D]",
+    secondary: "border border-[#E5E7EB] bg-white text-[#222222] hover:bg-[#F7F7F7]",
+    ghost: "text-[#222222] hover:bg-[#F7F7F7]",
   };
   return <button className={cn(base, styles[variant], className)} {...props} />;
 }
 
 export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className={cn("w-full rounded-lg border border-[#E5E7EB] px-4 py-3 text-sm outline-none", props.className)} />;
+  return <input {...props} className={cn("w-full rounded-full border border-[#DDDDDD] px-4 py-3 text-sm outline-none focus:border-[#222222]", props.className)} />;
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn("rounded-xl border border-[#E5E7EB] bg-white shadow-card", className)}>{children}</div>;
+  return <div className={cn("rounded-2xl border border-[#E5E7EB] bg-white shadow-card hover:shadow-md transition-shadow", className)}>{children}</div>;
 }
 
 export function Badge({ className, children }: { className?: string; children: ReactNode }) {
