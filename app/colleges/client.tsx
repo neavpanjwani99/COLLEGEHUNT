@@ -24,7 +24,7 @@ function ClientContent({ colleges }: { colleges: College[] }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoaded(true), 600);
+    const timer = window.setTimeout(() => setLoaded(true), 50);
     return () => window.clearTimeout(timer);
   }, []);
 
