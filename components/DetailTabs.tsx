@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import { Building2, ChevronDown, ChevronRight, Clock3, Calendar, MapPin, Star, TrendingDown, TrendingUp } from "lucide-react";
 import type { College } from "@/types";
@@ -33,6 +33,11 @@ export function DetailTabs({ college }: { college: College }) {
   const [tab, setTab] = useState<TabKey>("Overview");
   const { isShortlisted, toggleShortlist } = useShortlist();
   const shortlisted = isShortlisted(college.id);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const yearData = college.placements.slice().sort((a, b) => a.year - b.year);
   const topRecruiters = college.placements[0]?.topRecruiters ?? [];
@@ -124,14 +129,18 @@ export function DetailTabs({ college }: { college: College }) {
           <Card className="p-6">
             <div className="mb-4 text-lg font-semibold text-[#111827]">Average Package Trend (LPA)</div>
             <div className="h-[280px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={yearData}>
-                  <XAxis dataKey="year" stroke="#6B7280" />
-                  <YAxis stroke="#6B7280" />
-                  <Tooltip />
-                  <Bar dataKey="avgPackage" fill="#006AFF" />
-                </BarChart>
-              </ResponsiveContainer>
+              {mounted ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={yearData}>
+                    <XAxis dataKey="year" stroke="#6B7280" />
+                    <YAxis stroke="#6B7280" />
+                    <Tooltip />
+                    <Bar dataKey="avgPackage" fill="#006AFF" />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full w-full bg-gray-50 animate-pulse rounded" />
+              )}
             </div>
           </Card>
           <div>
