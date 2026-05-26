@@ -37,4 +37,6 @@ export interface College {
   placements: PlacementYear[];
   cutoffs: Cutoff[];
   tags: string[];
+  logo?: string;
+  banner?: string;
 }

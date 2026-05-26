@@ -459,8 +459,41 @@ const collegeData: Omit<College, "id" | "slug">[] = [
   },
 ];
 
-export const colleges: College[] = collegeData.map((college, index) => ({
-  ...college,
-  id: `college-${index + 1}`,
-  slug: slugify(college.name),
-}));
+const logoMap: Record<string, string> = {
+  "IIT Bombay": "https://upload.wikimedia.org/wikipedia/en/1/1d/Indian_Institute_of_Technology_Bombay_Logo.svg",
+  "IIT Delhi": "https://upload.wikimedia.org/wikipedia/en/f/fd/Indian_Institute_of_Technology_Delhi_Logo.svg",
+  "IIM Ahmedabad": "https://upload.wikimedia.org/wikipedia/en/5/58/IIM_Ahmedabad_Logo.svg",
+  "AIIMS Delhi": "https://upload.wikimedia.org/wikipedia/en/3/36/All_India_Institute_of_Medical_Sciences%2C_New_Delhi_Logo.svg",
+  "BITS Pilani": "https://upload.wikimedia.org/wikipedia/en/d/d3/BITS_Pilani-Logo.svg",
+  "NIT Trichy": "https://upload.wikimedia.org/wikipedia/en/8/87/National_Institute_of_Technology_Tiruchirappalli_Logo.png",
+  "VIT Vellore": "https://upload.wikimedia.org/wikipedia/en/c/c5/Vellore_Institute_of_Technology_seal_2017.svg",
+  "Manipal Academy of Higher Education": "https://upload.wikimedia.org/wikipedia/en/e/e4/Manipal_University_logo.png",
+  "LPU Jalandhar": "https://upload.wikimedia.org/wikipedia/en/7/7b/Lovely_Professional_University_logo.png",
+  "KIIT Bhubaneswar": "https://upload.wikimedia.org/wikipedia/en/a/a9/KIIT_logo.svg",
+  "Amrita Vishwa Vidyapeetham": "https://upload.wikimedia.org/wikipedia/en/8/8a/Amrita_Vishwa_Vidyapeetham_Logo.svg"
+};
+
+const realisticBanners = [
+  "https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/357271/pexels-photo-357271.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/256455/pexels-photo-256455.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800"
+];
+
+export const colleges: College[] = collegeData.map((college, index) => {
+  let domain = "example.com";
+  try {
+    domain = new URL(college.website).hostname;
+  } catch(e) {}
+  
+  return {
+    ...college,
+    id: `college-${index + 1}`,
+    slug: slugify(college.name),
+    logo: logoMap[college.name] || `https://logo.clearbit.com/${domain}`,
+    banner: realisticBanners[index % realisticBanners.length],
+  };
+});
