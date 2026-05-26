@@ -15,11 +15,16 @@ export default function CompareClient() {
 // hooks to read weights from URL query parameters, so that users can share their comparisons with custom weights by sharing the URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const placement = Number(params.get("placement"));
-    const fees = Number(params.get("fees"));
-    const location = Number(params.get("location"));
-    if ([placement, fees, location].every((value) => Number.isFinite(value))) {
-      setWeights({ placement, fees, location });
+    const p = params.get("placement");
+    const f = params.get("fees");
+    const l = params.get("location");
+    if (p !== null && f !== null && l !== null) {
+      const placement = Number(p);
+      const fees = Number(f);
+      const location = Number(l);
+      if ([placement, fees, location].every((value) => Number.isFinite(value))) {
+        setWeights({ placement, fees, location });
+      }
     }
   }, []);
 
