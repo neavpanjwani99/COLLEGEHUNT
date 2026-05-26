@@ -6,10 +6,18 @@ import { Button } from "@/components/ui";
 import { useCompare } from "@/context/CompareContext";
 import { colleges } from "@/data/colleges";
 
+import { useState, useEffect } from "react";
+
 export function CompareTray() {
   const { compareIds, removeCompare } = useCompare();
   const selected = colleges.filter((college) => compareIds.includes(college.id));
-  if (selected.length < 2) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || selected.length < 2) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#E5E7EB] bg-white px-6 py-4">
