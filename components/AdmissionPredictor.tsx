@@ -13,30 +13,44 @@ function percentileToRank(percentile: number): number {
 
 export function AdmissionPredictor({ college }: { college: College }) {
   const [percentile, setPercentile] = useState("");
-  const [exam, setExam] = useState<ExamKey>("JEE");
+  const [exam, setExam] = useState<string>("");
   const [category, setCategory] = useState<Category>("General");
   const [result, setResult] = useState<null | { label: string; tone: "green" | "yellow" | "red"; fill: number; message: string }>(null);
 
   const availableExams = useMemo(() => Array.from(new Set(college.cutoffs.map((cutoff) => cutoff.exam))).slice(0, 4), [college.cutoffs]);
-
+  const activeExam = exam || availableExams[0] || "";
   const check = () => {
     const p = Number(percentile);
-    if (!Number.isFinite(p)) return;
-    const rank = percentileToRank(p);
-    const cutoff = college.cutoffs.find((entry) => entry.exam === exam && entry.category === category);
+    if (!Number.isFinite(p) || p < 0 || p > 100 || !activeExam) return;
+    
+    const cutoff = college.cutoffs.find((entry) => entry.exam === activeExam && entry.category === category);
     if (!cutoff) {
       setResult({ label: "No data", tone: "yellow", fill: 40, message: "No matching cutoff data found for this exam and category." });
       return;
     }
-    if (rank <= cutoff.cutoffValue) {
-      setResult({ label: "High Chance", tone: "green", fill: 90, message: "Your rank is within cutoff range." });
-      return;
+
+    const isPercentileBased = activeExam.toUpperCase().includes("CAT") || activeExam.toUpperCase().includes("CUET");
+
+    if (isPercentileBased) {
+      // For percentiles, higher is better
+      if (p >= cutoff.cutoffValue) {
+        setResult({ label: "High Chance", tone: "green", fill: 90, message: `Your percentile (${p}%) meets or exceeds the cutoff (${cutoff.cutoffValue}%).` });
+      } else if (p >= cutoff.cutoffValue - 3) {
+        setResult({ label: "Moderate Chance", tone: "yellow", fill: 60, message: `You are close to the cutoff (${cutoff.cutoffValue}%).` });
+      } else {
+        setResult({ label: "Low Chance", tone: "red", fill: 25, message: `Your percentile (${p}%) is below the cutoff (${cutoff.cutoffValue}%).` });
+      }
+    } else {
+      // For ranks, lower is better. Percentile is converted to estimated rank.
+      const rank = percentileToRank(p);
+      if (rank <= cutoff.cutoffValue) {
+        setResult({ label: "High Chance", tone: "green", fill: 90, message: `Estimated Rank: ~${rank.toLocaleString()} (Cutoff: ${cutoff.cutoffValue.toLocaleString()})` });
+      } else if (rank <= cutoff.cutoffValue * 1.5) {
+        setResult({ label: "Moderate Chance", tone: "yellow", fill: 60, message: `Estimated Rank: ~${rank.toLocaleString()} (Close to cutoff ${cutoff.cutoffValue.toLocaleString()})` });
+      } else {
+        setResult({ label: "Low Chance", tone: "red", fill: 25, message: `Estimated Rank: ~${rank.toLocaleString()} (Above cutoff ${cutoff.cutoffValue.toLocaleString()})` });
+      }
     }
-    if (rank <= cutoff.cutoffValue * 1.2) {
-      setResult({ label: "Moderate Chance", tone: "yellow", fill: 60, message: "You are close to the cutoff." });
-      return;
-    }
-    setResult({ label: "Low Chance", tone: "red", fill: 25, message: "Your rank is above the cutoff." });
   };
 
   return (
@@ -59,8 +73,8 @@ export function AdmissionPredictor({ college }: { college: College }) {
           <label className="text-xs font-medium uppercase tracking-[0.04em] text-[#6B7280]">Exam</label>
           <div className="mt-2 flex flex-wrap gap-2">
             {availableExams.map((value) => (
-              <Badge key={value} className={exam === value ? "bg-[#006AFF] text-white" : "bg-white"}>
-                <button type="button" onClick={() => setExam(value as ExamKey)}>
+              <Badge key={value} className={activeExam === value ? "bg-[#006AFF] text-white hover:bg-[#006AFF]" : "bg-white"}>
+                <button type="button" onClick={() => setExam(value)}>
                   {value}
                 </button>
               </Badge>
