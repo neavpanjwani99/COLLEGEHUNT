@@ -9,8 +9,17 @@ export function OnboardingModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [streams, setStreams] = useState<string[]>([]);
-  const [exam, setExam] = useState("JEE Main");
+  const [exam, setExam] = useState("");
   const [priority, setPriority] = useState("Placement Package");
+
+  const getAvailableExams = () => {
+    let available: string[] = [];
+    if (streams.includes("Engineering")) available.push("JEE Main", "JEE Advanced", "BITSAT", "State CET");
+    if (streams.includes("Medical")) available.push("NEET", "AIIMS");
+    if (streams.includes("Commerce")) available.push("CUET", "IPMAT", "CA Foundation");
+    if (streams.includes("Law")) available.push("CLAT", "AILET", "LSAT");
+    return Array.from(new Set(available.length > 0 ? available : ["CUET", "State CET", "Other"]));
+  };
 
   // hook the user to complete onboarding if they haven't already
   useEffect(() => {
@@ -53,7 +62,7 @@ export function OnboardingModal() {
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold">Which exam are you preparing for?</h2>
             <div className="flex flex-wrap gap-2">
-              {["JEE Main", "JEE Advanced", "CUET", "NEET", "State CET", "Other"].map((value) => (
+              {getAvailableExams().map((value) => (
                 <Badge key={value} className={exam === value ? "bg-[#006AFF] text-white" : "bg-white"}>
                   <button type="button" onClick={() => setExam(value)}>{value}</button>
                 </Badge>
@@ -61,7 +70,7 @@ export function OnboardingModal() {
             </div>
             <div className="flex gap-2">
               <Button variant="secondary" onClick={() => setStep(0)}>Back</Button>
-              <Button onClick={() => setStep(2)}>Next</Button>
+              <Button disabled={!exam} onClick={() => setStep(2)}>Next</Button>
             </div>
           </div>
         )}
