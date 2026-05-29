@@ -5,7 +5,7 @@ import logoImg from "@/app/images/Logo.png";
 export function Footer() {
   return (
     <footer className="border-t border-[#E5E7EB] bg-white pt-16 pb-12">
-      <div className="mx-auto max-w-[1200px] px-6">
+      <div className="mx-auto max-w-[1360px] px-6">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-6">
           <div className="max-w-md">
             <Link href="/" className="flex items-center">
