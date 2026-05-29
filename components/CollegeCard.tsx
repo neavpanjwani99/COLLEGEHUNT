@@ -1,3 +1,4 @@
+// adjusted font sizes and spacing inside college card
 "use client";
 
 import Link from "next/link";
