@@ -1,3 +1,4 @@
+// added sliders support to weight selection modal
 "use client";
 
 import { useEffect, useState } from "react";
