@@ -1,3 +1,4 @@
+// added empty state message for placement stats
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
