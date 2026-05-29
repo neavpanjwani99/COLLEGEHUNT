@@ -1,3 +1,4 @@
+// finished onboarding weight presets and ranges
 // added sliders support to weight selection modal
 "use client";
 
