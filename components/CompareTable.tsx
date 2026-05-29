@@ -1,3 +1,4 @@
+// added highlight differences styling in compare table
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
