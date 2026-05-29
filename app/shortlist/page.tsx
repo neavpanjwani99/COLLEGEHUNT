@@ -24,7 +24,7 @@ export default function ShortlistPage() {
 
   return (
     <div className="min-h-screen bg-white px-6 pt-10 pb-20">
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-[1360px]">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold tracking-tight text-[#222222]">My Shortlist</h1>
